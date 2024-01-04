@@ -5,6 +5,6 @@ Route::middleware(['admin'])->group(
     function () {
         Route::get('/', function () {
             return view('admin.page.dashboard');
-        });
+        })->name('dashboard');
     }
 );
