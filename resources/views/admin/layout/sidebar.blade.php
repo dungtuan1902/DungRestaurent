@@ -29,7 +29,7 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDepartment"
+        <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseDepartment"
             aria-expanded="true" aria-controls="collapseDepartment">
             <i class="fa-solid fa-people-roof"></i>
 
@@ -39,7 +39,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header"></h6> --}}
-                <a class="collapse-item" href="">Department Manager</a>
+                <a class="collapse-item" href="{{ route('admin.department.index') }}">Department Manager</a>
             </div>
         </div>
     </li>
