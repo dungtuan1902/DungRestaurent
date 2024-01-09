@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -29,5 +30,9 @@ class Controller extends BaseController
     {
         $deleteImage = Storage::delete('/public/' . $image);
         return $deleteImage;
+    }
+    public function SideBar()
+    {
+        return Department::all();
     }
 }

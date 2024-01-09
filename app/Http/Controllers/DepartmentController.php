@@ -56,9 +56,6 @@ class DepartmentController extends Controller
       
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         if ($id) {

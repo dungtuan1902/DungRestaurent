@@ -78,7 +78,7 @@
                                                         data-dismiss="modal">Cancel</button>
                                                     <a class="btn btn-danger"
                                                         href="{{ route('admin.department.delete', ['id' => $item->id]) }}">Trash
-                                                        to move {{ $item->id }}</a>
+                                                        to move </a>
                                                 </div>
                                             </div>
                                         </div>

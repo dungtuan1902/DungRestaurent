@@ -53,11 +53,15 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header"></h6> --}}
-                <a class="collapse-item" href="">Cashier</a>
-                <a class="collapse-item" href="">Chef</a>
+                <a class="collapse-item" href="{{route('admin.admin.index')}}">Staff Manager</a>
+                {{-- @foreach ($sidebar as $item)
+                    <a class="collapse-item" href="{{ $item->name }}">{{ $item->name }}</a>
+                @endforeach --}}
+
+                {{-- <a class="collapse-item" href="">Chef</a>
                 <a class="collapse-item" href="">Guard</a>
                 <a class="collapse-item" href="">Manager</a>
-                <a class="collapse-item" href="">Serving staff</a>
+                <a class="collapse-item" href="">Serving staff</a> --}}
             </div>
         </div>
     </li>
@@ -71,7 +75,7 @@
         <div id="collapseRole" class="collapse" aria-labelledby="headingRole" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header"></h6> --}}
-                <a class="collapse-item" href="">Role Manager</a>
+                <a class="collapse-item" href="{{route('admin.role.index')}}">Role Manager</a>
 
             </div>
         </div>

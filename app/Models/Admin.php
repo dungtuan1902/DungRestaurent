@@ -19,6 +19,7 @@ class Admin extends Model
         'password',
         'image',
         'role_id',
+        'department_id',
         'email',
         'email_verified_at',
         'remember_token'
