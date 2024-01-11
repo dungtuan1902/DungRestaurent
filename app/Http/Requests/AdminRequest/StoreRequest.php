@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 switch ($currentAction) {
-                    case 'update':
+                    case 'store':
                         $rule = [
                             'name' => 'required|max:255',
                             'address' => 'required|max:255',

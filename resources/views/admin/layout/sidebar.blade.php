@@ -54,14 +54,6 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header"></h6> --}}
                 <a class="collapse-item" href="{{route('admin.admin.index')}}">Staff Manager</a>
-                {{-- @foreach ($sidebar as $item)
-                    <a class="collapse-item" href="{{ $item->name }}">{{ $item->name }}</a>
-                @endforeach --}}
-
-                {{-- <a class="collapse-item" href="">Chef</a>
-                <a class="collapse-item" href="">Guard</a>
-                <a class="collapse-item" href="">Manager</a>
-                <a class="collapse-item" href="">Serving staff</a> --}}
             </div>
         </div>
     </li>
@@ -167,8 +159,8 @@
         </a>
         <div id="collapseFood" class="collapse" aria-labelledby="headingFood" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Food Type Manager</a>
-                <a class="collapse-item" href="">Food Manager</a>
+                <a class="collapse-item" href="{{route('admin.foodtype.index')}}">Food Type Manager</a>
+                <a class="collapse-item" href="{{route('admin.food.index')}}">Food Manager</a>
             </div>
         </div>
     </li>
@@ -181,7 +173,7 @@
         <div id="collapseDrinking" class="collapse" aria-labelledby="headingDrinking"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Drinking Type Manager</a>
+                <a class="collapse-item" href="{{route('admin.drinktype.index')}}">Drinking Type Manager</a>
                 <a class="collapse-item" href="">Drinking Manager</a>
             </div>
         </div>

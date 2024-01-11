@@ -65,7 +65,7 @@ class AdminController extends Controller
                 if ($request->hasFile('image') && $request->file('image')) {
                     $deleteImage = $this->DeleteImage($dep->image);
                     if ($deleteImage) {
-                        $param['image'] = $this->UploadImage('image_admin');
+                        $param['image'] = $this->UploadImage('image_admin',$request->file('image'));
                     }
                 }
 
