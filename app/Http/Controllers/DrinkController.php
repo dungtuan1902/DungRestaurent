@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DrinkRequest\StoreRequest;
+use App\Http\Requests\DrinkRequest\UpdateRequest;
 use App\Models\Drink;
 use App\Models\DrinkType;
 use Illuminate\Http\Request;
@@ -26,7 +28,7 @@ class DrinkController extends Controller
         $drink = $drink->paginate(6);
         return view('admin.page.drink.index', compact('drink', 'drinktype'));
     }
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $drinktype = $this->drinktype::all();
         if ($request->isMethod('post')) {
@@ -46,7 +48,7 @@ class DrinkController extends Controller
         return view('admin.page.drink.store', compact('drinktype'));
     }
     //dang lam do update 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
         if ($id) {
             $drink = $this->drink->find($id);
