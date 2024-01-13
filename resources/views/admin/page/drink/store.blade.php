@@ -9,12 +9,12 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-grid gap-2 d-md-flex">
             <div class="justify-content-md-start">
-                <a class="btn btn-outline-success" href="{{ route('admin.food.index') }}"><i class="fa-solid fa-list"></i></a>
-                <a class="btn btn-outline-primary" href="{{ route('admin.food.trash') }}">Trash</a>
+                <a class="btn btn-outline-success" href="{{ route('admin.drink.index') }}"><i class="fa-solid fa-list"></i></a>
+                <a class="btn btn-outline-primary" href="{{ route('admin.drink.trash') }}">Trash</a>
             </div>
         </div>
         <div class="card-body">
-            <form class="row g-3" method="POST" action="{{ route('admin.food.store') }}" enctype="multipart/form-data">
+            <form class="row g-3" method="POST" action="{{ route('admin.drink.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-4">
                     <label for="inputName" class="form-label">Name</label>
@@ -31,9 +31,9 @@
                     @endif
                 </div>
                 <div class="col-md-4">
-                    <label for="inputFoodType" class="form-label">FoodType</label>
-                    <select class="form-select" id="inputFoodType" name="food_type_id" aria-label="Default select example">
-                        @foreach ($foodtype as $d)
+                    <label for="inputDrinkType" class="form-label">DrinkType</label>
+                    <select class="form-select" id="inputDrinkType" name="drink_type_id" aria-label="Default select example">
+                        @foreach ($drinktype as $d)
                             <option value="{{ $d->id }}">{{ $d->name }}</option>
                         @endforeach
                     </select>
@@ -56,31 +56,6 @@
                     <img id="image_preview" style="width: 350px ; height:200px"
                         src="https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg"
                         alt="User">
-                </div>
-                <div class="col-md-6">
-                    <label for="image" class="form-label">Image Description</label>
-                    <div class="list-input-hidden-upload hidden">
-                        <input type="file" name="filenames[]" id="file_upload" class="myfrm form-control hidden">
-                    </div>
-                    <div class="input-group-btn">
-                        <button class="btn btn-success btn-add-image" type="button"><i
-                                class="fa-solid fa-plus mx-2"></i>Add image</button>
-                    </div>
-                </div>
-                <div class="list-images">
-                    @if (isset($list_images) && !empty($list_images))
-                        @foreach (json_decode($list_images) as $key => $img)
-                            <div class="box-image">
-                                <input type="hidden" name="images_uploaded[]" value="{{ $img }}"
-                                    id="img-{{ $key }}">
-                                <img src="{{ asset('files/' . $img) }}" class="picture-box">
-                                <div class="wrap-btn-delete"><span data-id="img-{{ $key }}"
-                                        class="btn-delete-image"><i class="fa-solid fa-xmark"></i></span></div>
-                            </div>
-                        @endforeach
-                        <input type="hidden" name="images_uploaded_origin" value="{{ $list_images }}">
-                        <input type="hidden" name="id" value="{{ $id }}">
-                    @endif
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating">

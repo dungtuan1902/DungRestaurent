@@ -8,16 +8,16 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-grid gap-2 d-md-flex">
             <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-                method="POST" action="{{ route('admin.food.index') }}">
+                method="POST" action="{{ route('admin.drink.index') }}">
                 @csrf
                 <div class="input-group">
                     <input type="text" class="form-control bg-white border-0 small" placeholder="Search for..."
                         aria-label="Search" aria-describedby="basic-addon2" name="search">
-                    <select class="form-select bg-white border-0 small" name="foodtype"
-                        aria-label="Default select example" aria-describedby="basic-addon2">
+                    <select class="form-select bg-white border-0 small" name="drinktype" aria-label="Default select example"
+                        aria-describedby="basic-addon2">
                         <option>
                         </option>
-                        @foreach ($foodtype as $item)
+                        @foreach ($drinktype as $item)
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
 
@@ -31,13 +31,13 @@
                 </div>
             </form>
             <div class="justify-content-md-end">
-                <a class="btn btn-primary" href="{{ route('admin.food.trash') }}">Trash</a>
-                <a class="btn btn-outline-success" href="{{ route('admin.food.store') }}"><i
+                <a class="btn btn-primary" href="{{ route('admin.drink.trash') }}">Trash</a>
+                <a class="btn btn-outline-success" href="{{ route('admin.drink.store') }}"><i
                         class="fa-solid fa-plus"></i></a>
             </div>
         </div>
         <div class="card-body">
-            {{ $food->links() }}
+            {{ $drink->links() }}
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -65,7 +65,7 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach ($food as $item)
+                        @foreach ($drink as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td><img width="150px" height="100px" class="img-fluid"
@@ -74,8 +74,8 @@
                                 <td>{{ $item->price }}</td>
                                 <td>{{ $item->ingredient }}</td>
                                 <td>
-                                    @foreach ($foodtype as $ft)
-                                        @if ($ft->id == $item->food_type_id)
+                                    @foreach ($drinktype as $ft)
+                                        @if ($ft->id == $item->drink_type_id)
                                             {{ $ft->name }}
                                         @endif
                                     @endforeach
@@ -84,7 +84,7 @@
                                 <td>
                                     <div class="d-flex">
                                         <a class="btn btn-outline-warning  mx-1"
-                                            href="{{ route('admin.food.update', ['id' => $item->id]) }}" role="button"><i
+                                            href="{{ route('admin.drink.update', ['id' => $item->id]) }}" role="button"><i
                                                 class="fa-regular fa-pen-to-square"></i></a>
                                         <a class="btn btn-outline-danger  mx-1" href="#" role="button"
                                             data-target="#deleteModal{{ $item->id }}" data-toggle="modal"><i
@@ -111,7 +111,7 @@
                                                     <button class="btn btn-secondary" type="button"
                                                         data-dismiss="modal">Cancel</button>
                                                     <a class="btn btn-danger"
-                                                        href="{{ route('admin.food.delete', ['id' => $item->id]) }}">Trash
+                                                        href="{{ route('admin.drink.delete', ['id' => $item->id]) }}">Trash
                                                         to move </a>
                                                 </div>
                                             </div>
@@ -135,31 +135,17 @@
                                                             <div class="col-md-6">
                                                                 <img src="{{ Storage::url($item->image) }}"
                                                                     class="img-fluid rounded-start" alt="Loading">
-                                                                <div class="d-flex">
-                                                                    @foreach ($image_food as $if)
-                                                                        @if ($item->id == $if->food_id)
-                                                                            <div>
-                                                                                <a href="{{ Storage::url($if->image) }}"
-                                                                                    target="_blank"
-                                                                                    rel="noopener noreferrer"><img
-                                                                                        src="{{ Storage::url($if->image) }}"
-                                                                                        class="w-100 h-100"
-                                                                                        alt=""></a>
-
-                                                                            </div>
-                                                                        @endif
-                                                                    @endforeach
-                                                                </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="card-body">
                                                                     <h1 class="card-title uppercase">
-                                                                        <strong>{{ $item->name }}</strong></h1>
+                                                                        <strong>{{ $item->name }}</strong>
+                                                                    </h1>
                                                                     <p class="card-text">Price : {{ $item->price }} VND
                                                                     </p>
-                                                                    <p class="card-text">FoodType :
-                                                                        @foreach ($foodtype as $ft)
-                                                                            @if ($ft->id == $item->food_type_id)
+                                                                    <p class="card-text">DrinkType :
+                                                                        @foreach ($drinktype as $ft)
+                                                                            @if ($ft->id == $item->drink_type_id)
                                                                                 {{ $ft->name }}
                                                                             @endif
                                                                         @endforeach
@@ -191,7 +177,7 @@
                 </table>
             </div>
 
-            {{ $food->links() }}
+            {{ $drink->links() }}
 
         </div>
 

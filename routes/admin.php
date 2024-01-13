@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DrinkController;
 use App\Http\Controllers\DrinkTypeController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodTypeController;
@@ -60,5 +61,13 @@ Route::middleware(['admin'])->group(
         Route::match(['get', 'post'], '/drinktype/update/{id}', [DrinkTypeController::class, 'update'])->name('admin.drinktype.update');
         Route::match(['get'], '/drinktype/restore/{id}', [DrinkTypeController::class, 'restore'])->name('admin.drinktype.restore');
         Route::match(['get'], '/drinktype/force/{id}', [DrinkTypeController::class, 'force'])->name('admin.drinktype.force');
+        //Drink
+        Route::match(['get', 'post'], '/drink', [DrinkController::class, 'index'])->name('admin.drink.index');
+        Route::match(['get', 'post'], '/drink/trash', [DrinkController::class, 'trash'])->name('admin.drink.trash');
+        Route::match(['get'], '/drink/delete/{id}', [DrinkController::class, 'destroy'])->name('admin.drink.delete');
+        Route::match(['get', 'post'], '/drink/store', [DrinkController::class, 'store'])->name('admin.drink.store');
+        Route::match(['get', 'post'], '/drink/update/{id}', [DrinkController::class, 'update'])->name('admin.drink.update');
+        Route::match(['get'], '/drink/restore/{id}', [DrinkController::class, 'restore'])->name('admin.drink.restore');
+        Route::match(['get'], '/drink/force/{id}', [DrinkController::class, 'force'])->name('admin.drink.force');
     }
 );

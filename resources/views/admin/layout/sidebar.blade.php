@@ -174,7 +174,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{route('admin.drinktype.index')}}">Drinking Type Manager</a>
-                <a class="collapse-item" href="">Drinking Manager</a>
+                <a class="collapse-item" href="{{route('admin.drink.index')}}">Drinking Manager</a>
             </div>
         </div>
     </li>

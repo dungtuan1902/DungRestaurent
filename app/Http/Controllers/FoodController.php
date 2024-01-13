@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FoodRequest\StoreRequest;
+use App\Http\Requests\FoodRequest\UpdateRequest;
 use App\Models\Food;
 use App\Models\FoodType;
 use App\Models\ImageFood;
@@ -19,13 +21,16 @@ class FoodController extends Controller
         $food = $this->food;
         $foodtype = $this->foodtype::all();
         if ($request->search != '') {
-            $food = $this->food->where('name', 'Like', "%{$request->search}%")->orWhere('ingredient', 'Like', "%{$request->search}%");
+            $food = $food->where('name', 'Like', "%{$request->search}%")->orWhere('ingredient', 'Like', "%{$request->search}%");
+        }
+        if (isset($request->foodtype)) {
+            $food = $food->where('food_type_id',$request->foodtype);
         }
         $food = $food->paginate(6);
         $image_food = ImageFood::all();
         return view('admin.page.food.index', compact('food', 'foodtype', 'image_food'));
     }
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $foodtype = $this->foodtype::all();
         if ($request->isMethod('post')) {
@@ -59,7 +64,9 @@ class FoodController extends Controller
     {
         if ($id) {
             $fd = $this->food->find($id);
-            $array_image = ImageFood::where('food_id', $id)->get();
+            $foodtype = $this->foodtype::all();
+            $list_images = ImageFood::where('food_id', $id)->get();
+            $files = [];
             if ($request->isMethod('post')) {
                 $param = $request->except('_token');
                 $param['image'] = $fd->image;
@@ -70,23 +77,41 @@ class FoodController extends Controller
                     }
                 }
                 if ($request->hasFile('filenames') && $request->file('filenames')) {
-                    foreach ($array_image as $key => $value) {
-                        $deleteImage = $this->DeleteImage($value);
+                    $files = $this->UploadMultiImage('image_food', $request->file('filenames'));
+                }
+                if (isset($request->images_uploaded)) {
+                    $path_url_image = [];
+                    foreach (json_decode($request->images_uploaded_origin) as $key => $value) {
+                        $path_url_image[] = $value->image;
                     }
-                    if ($deleteImage) {
-                        
+                    $files_remove = array_diff($path_url_image, $request->images_uploaded);
+                    // $files = array_merge($request->images_uploaded, $files);
+                } else {
+                    $files_remove = [];
+                    foreach (json_decode($request->images_uploaded_origin) as $key => $value) {
+                        $files_remove[] = $value->image;
                     }
                 }
-                $update = $this->admins->find($id)->update($param);
+                $update = $this->food->find($id)->update($param);
                 if ($update) {
+                    //Delete Image
+                    foreach ($files_remove as $key => $value) {
+                        $deleteImage = $this->DeleteImage($value);
+                        $delete = ImageFood::where('image', $value)->delete();
+                        $force = ImageFood::onlyTrashed()->where('image', $value)->forceDelete();
+                    }
+                    //Insert Image
+                    foreach ($files as $key => $value) {
+                        ImageFood::create(['food_id' => $id, 'image' => $value]);
+                    }
                     notify()->success('Update success');
-                    return redirect()->route('admin.admin.index');
+                    return redirect()->route('admin.food.index');
                 } else {
                     notify()->error('Update error');
-                    return redirect()->route('admin.admin.update', ['id' => $id]);
+                    return redirect()->route('admin.food.index');
                 }
             }
-            return view('admin.page.admin.update', compact('dep', 'department', 'role'));
+            return view('admin.page.food.update', compact('fd', 'foodtype', 'list_images'));
         }
 
     }
@@ -97,15 +122,16 @@ class FoodController extends Controller
             $delete = Food::find($id)->delete();
             if ($delete) {
                 notify()->success('Delete success');
-                return redirect()->route('admin.admin.index');
+                return redirect()->route('admin.food.index');
             } else {
                 notify()->error('Delete error');
-                return redirect()->route('admin.admin.index');
+                return redirect()->route('admin.food.index');
             }
         }
     }
     public function trash(Request $request)
     {
+        $image_food = ImageFood::all();
         $foodtype = $this->foodtype::all();
         $food = Food::onlyTrashed();
         if ($request->search != '') {
@@ -115,7 +141,7 @@ class FoodController extends Controller
         if (empty($food)) {
             $food = $food->toQuery()->paginate(6);
         }
-        return view('admin.page.admin.trash', compact('food', 'role', 'department'));
+        return view('admin.page.food.trash', compact('food', 'foodtype', 'image_food'));
     }
     public function restore($id)
     {
@@ -123,10 +149,10 @@ class FoodController extends Controller
             $delete = Food::withTrashed()->where('id', $id)->restore();
             if ($delete) {
                 notify()->success('Restore success');
-                return redirect()->route('admin.admin.index');
+                return redirect()->route('admin.food.index');
             } else {
                 notify()->error('Restore error');
-                return redirect()->route('admin.admin.index');
+                return redirect()->route('admin.food.index');
             }
         }
     }
@@ -134,14 +160,20 @@ class FoodController extends Controller
     {
         if ($id) {
             $image = Food::withTrashed()->where('id', $id)->first()->image;
+            $image_remove = ImageFood::where('food_id', $id)->get();
+            foreach ($image_remove as $key => $value) {
+                $deleteImage = $this->DeleteImage($value);
+                $delete = ImageFood::where('image', $value)->delete();
+                $force = ImageFood::onlyTrashed()->where('image', $value)->forceDelete();
+            }
             $deleteImage = $this->DeleteImage($image);
             $delete = Food::withTrashed()->where('id', $id)->forceDelete();
-            if ($delete && $deleteImage) {
+            if ($delete) {
                 notify()->success('Delete success');
-                return redirect()->route('admin.admin.trash');
+                return redirect()->route('admin.food.trash');
             } else {
                 notify()->error('Delete error');
-                return redirect()->route('admin.admin.trash');
+                return redirect()->route('admin.food.trash');
             }
         }
     }
