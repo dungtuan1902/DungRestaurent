@@ -82,9 +82,9 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Room Type Manager</a>
-                <a class="collapse-item" href="">Room Manager</a>
-                <a class="collapse-item" href="">Ulitity Room Manager</a>
+                <a class="collapse-item" href="{{route('admin.roomtype.index')}}">Room Type Manager</a>
+                <a class="collapse-item" href="{{route('admin.room.index')}}">Room Manager</a>
+                <a class="collapse-item" href="{{route('admin.ulitityroom.index')}}">Ulitity Room Manager</a>
             </div>
         </div>
     </li>

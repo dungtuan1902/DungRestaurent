@@ -6,6 +6,9 @@ use App\Http\Controllers\DrinkTypeController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodTypeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Room\RoomTypeController;
+use App\Http\Controllers\Room\RoomController;
+use App\Http\Controllers\Room\UlitityRoomController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin'])->group(
@@ -69,5 +72,23 @@ Route::middleware(['admin'])->group(
         Route::match(['get', 'post'], '/drink/update/{id}', [DrinkController::class, 'update'])->name('admin.drink.update');
         Route::match(['get'], '/drink/restore/{id}', [DrinkController::class, 'restore'])->name('admin.drink.restore');
         Route::match(['get'], '/drink/force/{id}', [DrinkController::class, 'force'])->name('admin.drink.force');
+        //RoomType
+        Route::match(['get', 'post'], '/roomtype', [RoomTypeController::class, 'index'])->name('admin.roomtype.index');
+        Route::match(['get', 'post'], '/roomtype/trash', [RoomTypeController::class, 'trash'])->name('admin.roomtype.trash');
+        Route::match(['get'], '/roomtype/delete/{id}', [RoomTypeController::class, 'destroy'])->name('admin.roomtype.delete');
+        Route::match(['get', 'post'], '/roomtype/store', [RoomTypeController::class, 'store'])->name('admin.roomtype.store');
+        Route::match(['get', 'post'], '/roomtype/update/{id}', [RoomTypeController::class, 'update'])->name('admin.roomtype.update');
+        Route::match(['get'], '/roomtype/restore/{id}', [RoomTypeController::class, 'restore'])->name('admin.roomtype.restore');
+        Route::match(['get'], '/roomtype/force/{id}', [RoomTypeController::class, 'force'])->name('admin.roomtype.force');
+        //UlitityRoom
+        Route::match(['get', 'post'], '/ulitityroom', [UlitityRoomController::class, 'index'])->name('admin.ulitityroom.index');
+        //Room
+        Route::match(['get', 'post'], '/room', [RoomController::class, 'index'])->name('admin.room.index');
+        Route::match(['get', 'post'], '/room/trash', [RoomController::class, 'trash'])->name('admin.room.trash');
+        Route::match(['get'], '/room/delete/{id}', [RoomController::class, 'destroy'])->name('admin.room.delete');
+        Route::match(['get', 'post'], '/room/store', [RoomController::class, 'store'])->name('admin.room.store');
+        Route::match(['get', 'post'], '/room/update/{id}', [RoomController::class, 'update'])->name('admin.room.update');
+        Route::match(['get'], '/room/restore/{id}', [RoomController::class, 'restore'])->name('admin.room.restore');
+        Route::match(['get'], '/room/force/{id}', [RoomController::class, 'force'])->name('admin.room.force');
     }
 );

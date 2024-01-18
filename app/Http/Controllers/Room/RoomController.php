@@ -1,70 +1,76 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Room;
 
-use App\Http\Requests\FoodRequest\StoreRequest;
-use App\Http\Requests\FoodRequest\UpdateRequest;
-use App\Models\Food;
-use App\Models\FoodType;
-use App\Models\ImageFood;
+use App\Http\Controllers\Controller;
+use App\Models\Room;
+use App\Models\RoomType;
+use App\Models\ImageRoom;
+use App\Models\TableRoom;
 use Illuminate\Http\Request;
 
-class FoodController extends Controller
+class RoomController extends Controller
 {
     public function __construct()
     {
-        $this->food = new Food();
-        $this->foodtype = new FoodType();
+        $this->room = new Room();
+        $this->roomtype = new RoomType();
     }
     public function index(Request $request)
     {
-        $food = $this->food;
-        $foodtype = $this->foodtype::all();
+        $room = $this->room;
+        $roomtype = $this->roomtype::all();
         if ($request->search != '') {
-            $food = $food->where('name', 'Like', "%{$request->search}%")->orWhere('ingredient', 'Like', "%{$request->search}%");
+            $room = $room->where('name', 'Like', "%{$request->search}%")->orWhere('ingredient', 'Like', "%{$request->search}%");
         }
-        if (isset($request->foodtype)) {
-            $food = $food->where('food_type_id',$request->foodtype);
+        if (isset($request->roomtype)) {
+            $room = $room->where('room_type_id', $request->roomtype);
         }
-        $food = $food->paginate(6);
-        $image_food = ImageFood::all();
-        return view('admin.page.food.index', compact('food', 'foodtype', 'image_food'));
+        $room = $room->paginate(6);
+        $image_room = ImageRoom::all();
+        return view('admin.page.room.index', compact('room', 'roomtype', 'image_room'));
     }
-    public function store(StoreRequest $request)
+    public function store(Request $request)
     {
-        $foodtype = $this->foodtype::all();
+        $roomtype = $this->roomtype::all();
         if ($request->isMethod('post')) {
-            $param = $request->except('_token');
+            $param = $request->except('_token', 'quantity_people');
+            $param['quantity_table'] = (int) $request->quantity_table;
+            $param['number_floor'] = (int) $request->number_floor;
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $param['image'] = $this->UploadImage('image_food', $request->file('image'));
+                $param['image'] = $this->UploadImage('image_room', $request->file('image'));
             }
             if ($request->hasFile('filenames') && $request->file('filenames')) {
-                $array_image = $this->UploadMultiImage('image_food', $request->file('filenames'));
+                $array_image = $this->UploadMultiImage('image_room', $request->file('filenames'));
             }
-            $store = $this->food->create($param);
+            $store = $this->room->create($param);
             if ($store) {
                 foreach ($array_image as $key => $item) {
                     $image = [
-                        'food_id' => $store->id,
+                        'room_id' => $store->id,
                         'image' => $item
                     ];
-                    ImageFood::create($image);
+                    ImageRoom::create($image);
+                }
+                for ($i = 0; $i < (int) $param['quantity_table']; $i++) {
+                    $number_table = (100 * (int) $request->number_floor) + $i;
+                    $table = TableRoom::create(['room_id' => $store->id, 'number_table' => $number_table, 'quantity_people' => $request->quantity_people]);
                 }
                 notify()->success('Store success');
-                return redirect()->route('admin.food.store');
+                return redirect()->route('admin.room.store');
             } else {
                 notify()->error('Store error');
-                return redirect()->route('admin.food.store');
+                return redirect()->route('admin.room.store');
             }
         }
-        return view('admin.page.food.store', compact('foodtype'));
+        return view('admin.page.room.store', compact('roomtype'));
     }
-    public function update(UpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
         if ($id) {
-            $fd = $this->food->find($id);
-            $foodtype = $this->foodtype::all();
-            $list_images = ImageFood::where('food_id', $id)->get();
+            $fd = $this->room->find($id);
+            $roomtype = $this->roomtype::all();
+            $list_images = ImageFood::where('room_id', $id)->get();
             $files = [];
             if ($request->isMethod('post')) {
                 $param = $request->except('_token');
@@ -76,7 +82,7 @@ class FoodController extends Controller
                     }
                 }
                 if ($request->hasFile('filenames') && $request->file('filenames')) {
-                    $files = $this->UploadMultiImage('image_food', $request->file('filenames'));
+                    $files = $this->UploadMultiImage('image_room', $request->file('filenames'));
                 }
                 if (isset($request->images_uploaded)) {
                     $path_url_image = [];
@@ -91,7 +97,7 @@ class FoodController extends Controller
                         $files_remove[] = $value->image;
                     }
                 }
-                $update = $this->food->find($id)->update($param);
+                $update = $this->room->find($id)->update($param);
                 if ($update) {
                     //Delete Image
                     foreach ($files_remove as $key => $value) {
@@ -101,16 +107,16 @@ class FoodController extends Controller
                     }
                     //Insert Image
                     foreach ($files as $key => $value) {
-                        ImageFood::create(['food_id' => $id, 'image' => $value]);
+                        ImageFood::create(['room_id' => $id, 'image' => $value]);
                     }
                     notify()->success('Update success');
-                    return redirect()->route('admin.food.index');
+                    return redirect()->route('admin.room.index');
                 } else {
                     notify()->error('Update error');
-                    return redirect()->route('admin.food.index');
+                    return redirect()->route('admin.room.index');
                 }
             }
-            return view('admin.page.food.update', compact('fd', 'foodtype', 'list_images'));
+            return view('admin.page.room.update', compact('fd', 'roomtype', 'list_images'));
         }
 
     }
@@ -121,26 +127,26 @@ class FoodController extends Controller
             $delete = Food::find($id)->delete();
             if ($delete) {
                 notify()->success('Delete success');
-                return redirect()->route('admin.food.index');
+                return redirect()->route('admin.room.index');
             } else {
                 notify()->error('Delete error');
-                return redirect()->route('admin.food.index');
+                return redirect()->route('admin.room.index');
             }
         }
     }
     public function trash(Request $request)
     {
-        $image_food = ImageFood::all();
-        $foodtype = $this->foodtype::all();
-        $food = Food::onlyTrashed();
+        $image_room = ImageFood::all();
+        $roomtype = $this->roomtype::all();
+        $room = Food::onlyTrashed();
         if ($request->search != '') {
-            $food = Food::onlyTrashed()->where('name', 'Like', "%{$request->search}%")->orWhere('description', 'Like', "%{$request->search}%");
+            $room = Food::onlyTrashed()->where('name', 'Like', "%{$request->search}%")->orWhere('description', 'Like', "%{$request->search}%");
         }
-        $food = $food->get();
-        if (empty($food)) {
-            $food = $food->toQuery()->paginate(6);
+        $room = $room->get();
+        if (empty($room)) {
+            $room = $room->toQuery()->paginate(6);
         }
-        return view('admin.page.food.trash', compact('food', 'foodtype', 'image_food'));
+        return view('admin.page.room.trash', compact('room', 'roomtype', 'image_room'));
     }
     public function restore($id)
     {
@@ -148,10 +154,10 @@ class FoodController extends Controller
             $delete = Food::withTrashed()->where('id', $id)->restore();
             if ($delete) {
                 notify()->success('Restore success');
-                return redirect()->route('admin.food.index');
+                return redirect()->route('admin.room.index');
             } else {
                 notify()->error('Restore error');
-                return redirect()->route('admin.food.index');
+                return redirect()->route('admin.room.index');
             }
         }
     }
@@ -159,7 +165,7 @@ class FoodController extends Controller
     {
         if ($id) {
             $image = Food::withTrashed()->where('id', $id)->first()->image;
-            $image_remove = ImageFood::where('food_id', $id)->get();
+            $image_remove = ImageFood::where('room_id', $id)->get();
             foreach ($image_remove as $key => $value) {
                 $deleteImage = $this->DeleteImage($value);
                 $delete = ImageFood::where('image', $value)->delete();
@@ -169,10 +175,10 @@ class FoodController extends Controller
             $delete = Food::withTrashed()->where('id', $id)->forceDelete();
             if ($delete) {
                 notify()->success('Delete success');
-                return redirect()->route('admin.food.trash');
+                return redirect()->route('admin.room.trash');
             } else {
                 notify()->error('Delete error');
-                return redirect()->route('admin.food.trash');
+                return redirect()->route('admin.room.trash');
             }
         }
     }

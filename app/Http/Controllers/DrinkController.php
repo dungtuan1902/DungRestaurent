@@ -47,7 +47,6 @@ class DrinkController extends Controller
         }
         return view('admin.page.drink.store', compact('drinktype'));
     }
-    //dang lam do update 
     public function update(UpdateRequest $request, $id)
     {
         if ($id) {
