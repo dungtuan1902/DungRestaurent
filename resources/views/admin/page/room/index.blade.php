@@ -13,8 +13,8 @@
                 <div class="input-group">
                     <input type="text" class="form-control bg-white border-0 small" placeholder="Search for..."
                         aria-label="Search" aria-describedby="basic-addon2" name="search">
-                    <select class="form-select bg-white border-0 small" name="roomtype"
-                        aria-label="Default select example" aria-describedby="basic-addon2">
+                    <select class="form-select bg-white border-0 small" name="roomtype" aria-label="Default select example"
+                        aria-describedby="basic-addon2">
                         <option>
                         </option>
                         @foreach ($roomtype as $item)
@@ -45,9 +45,9 @@
                             <th>ID</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Price</th>
-                            <th>Ingredient</th>
-                            <th>FoodType</th>
+                            <th>Quantity Table</th>
+                            <th>Floor</th>
+                            <th>Room Type</th>
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
@@ -57,9 +57,9 @@
                             <th>ID</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Price</th>
-                            <th>Ingredient</th>
-                            <th>FoodType</th>
+                            <th>Quantity Table</th>
+                            <th>Floor</th>
+                            <th>Room Type</th>
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
@@ -71,8 +71,8 @@
                                 <td><img width="150px" height="100px" class="img-fluid"
                                         src="{{ asset(Storage::url($item->image)) }}" alt="Uploading "></td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->price }}</td>
-                                <td>{{ $item->ingredient }}</td>
+                                <td>{{ $item->quantity_table }}</td>
+                                <td>{{ $item->number_floor }}</td>
                                 <td>
                                     @foreach ($roomtype as $ft)
                                         @if ($ft->id == $item->room_type_id)
@@ -154,20 +154,36 @@
                                                             <div class="col-md-6">
                                                                 <div class="card-body">
                                                                     <h1 class="card-title uppercase">
-                                                                        <strong>{{ $item->name }}</strong></h1>
-                                                                    <p class="card-text">Price : {{ $item->price }} VND
+                                                                        <strong>{{ $item->name }}</strong>
+                                                                    </h1>
                                                                     </p>
-                                                                    <p class="card-text">FoodType :
+                                                                    <p class="card-text">RoomType :
                                                                         @foreach ($roomtype as $ft)
                                                                             @if ($ft->id == $item->room_type_id)
                                                                                 {{ $ft->name }}
                                                                             @endif
                                                                         @endforeach
                                                                     </p>
-                                                                    <p class="card-text">Ingredient :
-                                                                        {{ $item->ingredient }}</p>
+                                                                    <p class="card-text">Number Floor :
+                                                                        {{ $item->number_floor }}</p>
                                                                     <p class="card-text">Description :
                                                                         {{ $item->description }}</p>
+                                                                    <p class="card-text "> Status :
+                                                                        <strong
+                                                                            class="px-2 py-1 rounded-pill text-white {{ $item->status == 1 ? 'bg-success' : 'bg-secondary' }}">{{ $item->status == 1 ? 'Is Active' : 'Is maintained' }}</strong>
+                                                                    </p>
+                                                                    <div class="row" id="table_room">
+                                                                        <label for="table_room">Table :</label>
+                                                                        @foreach ($table_room as $table)
+                                                                            <div class="col">
+                                                                                @if ((int) $table->room_id == $item->id)
+                                                                                    <p
+                                                                                        class="px-2 py-1 rounded-pill bg-success text-center text-white">
+                                                                                        {{ $table->number_table }}</p>
+                                                                                @endif
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

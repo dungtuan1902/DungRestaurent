@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Requests\RoleRequest;
+namespace App\Http\Requests\PenaltyPolicyRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -24,7 +21,7 @@ class StoreRequest extends FormRequest
                     case 'store':
                         $rule = [
                             'name' => 'required|max:255|unique:roles',
-                            'salary' => 'required|min:0',
+                            'price' => 'required|min:0',
                             'description' => 'required|max:255'
                         ];
                         break;
@@ -47,8 +44,8 @@ class StoreRequest extends FormRequest
                 'name.required' => 'Please do not leave it blank the Name',
                 'name.max' => 'Name exceed 255 characters',
                 'name.unique' => 'Name already exist',
-                'salary.required' => 'Please do not leave it blank the Salary',
-                'salary.min' => 'Please do not leave negative numbers',
+                'price.required' => 'Please do not leave it blank the Salary',
+                'price.min' => 'Please do not leave negative numbers',
                 'description.required' => 'Please do not leave it blank the Description',
                 'description.max' => 'Description exceed 255 characters',
             ];

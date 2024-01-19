@@ -80,7 +80,6 @@
                             </div>
                         @endforeach
                         <input type="hidden" name="images_uploaded_origin" value="{{ $list_images }}">
-                        {{-- <input type="hidden" name="id" value="{{ $fd->id }}"> --}}
                     @endif
                 </div>
                 <div class="col-md-12">

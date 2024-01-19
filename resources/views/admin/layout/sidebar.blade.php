@@ -14,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -53,7 +53,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header"></h6> --}}
-                <a class="collapse-item" href="{{route('admin.admin.index')}}">Staff Manager</a>
+                <a class="collapse-item" href="{{ route('admin.admin.index') }}">Staff Manager</a>
             </div>
         </div>
     </li>
@@ -67,7 +67,7 @@
         <div id="collapseRole" class="collapse" aria-labelledby="headingRole" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header"></h6> --}}
-                <a class="collapse-item" href="{{route('admin.role.index')}}">Role Manager</a>
+                <a class="collapse-item" href="{{ route('admin.role.index') }}">Role Manager</a>
 
             </div>
         </div>
@@ -82,9 +82,9 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('admin.roomtype.index')}}">Room Type Manager</a>
-                <a class="collapse-item" href="{{route('admin.room.index')}}">Room Manager</a>
-                <a class="collapse-item" href="{{route('admin.ulitityroom.index')}}">Ulitity Room Manager</a>
+                <a class="collapse-item" href="{{ route('admin.roomtype.index') }}">Room Type Manager</a>
+                <a class="collapse-item" href="{{ route('admin.room.index') }}">Room Manager</a>
+                <a class="collapse-item" href="{{ route('admin.ulitityroom.index') }}">Ulitity Room Manager</a>
             </div>
         </div>
     </li>
@@ -96,7 +96,7 @@
         </a>
         <div id="collapseService" class="collapse" aria-labelledby="headingService" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Service Manager</a>
+                <a class="collapse-item" href="{{ route('admin.service.index') }}">Service Manager</a>
             </div>
         </div>
     </li>
@@ -120,8 +120,8 @@
         </a>
         <div id="collapsePolicy" class="collapse" aria-labelledby="headingPolicy" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Cancellation Manager</a>
-                <a class="collapse-item" href="">Penalty Manager</a>
+                <a class="collapse-item" href="{{ route('admin.cancellation.index') }}">Cancellation Manager</a>
+                <a class="collapse-item" href="{{ route('admin.penalty.index') }}">Penalty Manager</a>
             </div>
         </div>
     </li>
@@ -159,8 +159,8 @@
         </a>
         <div id="collapseFood" class="collapse" aria-labelledby="headingFood" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('admin.foodtype.index')}}">Food Type Manager</a>
-                <a class="collapse-item" href="{{route('admin.food.index')}}">Food Manager</a>
+                <a class="collapse-item" href="{{ route('admin.foodtype.index') }}">Food Type Manager</a>
+                <a class="collapse-item" href="{{ route('admin.food.index') }}">Food Manager</a>
             </div>
         </div>
     </li>
@@ -173,8 +173,8 @@
         <div id="collapseDrinking" class="collapse" aria-labelledby="headingDrinking"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{route('admin.drinktype.index')}}">Drinking Type Manager</a>
-                <a class="collapse-item" href="{{route('admin.drink.index')}}">Drinking Manager</a>
+                <a class="collapse-item" href="{{ route('admin.drinktype.index') }}">Drinking Type Manager</a>
+                <a class="collapse-item" href="{{ route('admin.drink.index') }}">Drinking Manager</a>
             </div>
         </div>
     </li>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\RoleRequest;
+namespace App\Http\Requests\CancellationPolicyRequest;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,9 +23,8 @@ class StoreRequest extends FormRequest
                 switch ($currentAction) {
                     case 'store':
                         $rule = [
-                            'name' => 'required|max:255|unique:roles',
-                            'salary' => 'required|min:0',
-                            'description' => 'required|max:255'
+                            'title' => 'required|max:255|unique:cancellation_policy',
+                            'content' => 'required|max:255'
                         ];
                         break;
                     default:
@@ -44,13 +43,11 @@ class StoreRequest extends FormRequest
     {
         return
             [
-                'name.required' => 'Please do not leave it blank the Name',
-                'name.max' => 'Name exceed 255 characters',
-                'name.unique' => 'Name already exist',
-                'salary.required' => 'Please do not leave it blank the Salary',
-                'salary.min' => 'Please do not leave negative numbers',
-                'description.required' => 'Please do not leave it blank the Description',
-                'description.max' => 'Description exceed 255 characters',
+                'title.required' => 'Please do not leave it blank the Name',
+                'title.max' => 'Name exceed 255 characters',
+                'title.unique' => 'Name already exist',
+                'content.required' => 'Please do not leave it blank the Description',
+                'content.max' => 'Description exceed 255 characters',
             ];
     }
 }

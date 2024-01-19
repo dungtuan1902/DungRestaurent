@@ -1,14 +1,17 @@
 <?php
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CancellationPolicyController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DrinkController;
 use App\Http\Controllers\DrinkTypeController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\FoodTypeController;
+use App\Http\Controllers\PenaltyPolicyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Room\RoomTypeController;
 use App\Http\Controllers\Room\RoomController;
 use App\Http\Controllers\Room\UlitityRoomController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin'])->group(
@@ -90,5 +93,29 @@ Route::middleware(['admin'])->group(
         Route::match(['get', 'post'], '/room/update/{id}', [RoomController::class, 'update'])->name('admin.room.update');
         Route::match(['get'], '/room/restore/{id}', [RoomController::class, 'restore'])->name('admin.room.restore');
         Route::match(['get'], '/room/force/{id}', [RoomController::class, 'force'])->name('admin.room.force');
+        //Service
+        Route::match(['get', 'post'], '/service', [ServiceController::class, 'index'])->name('admin.service.index');
+        Route::match(['get', 'post'], '/service/trash', [ServiceController::class, 'trash'])->name('admin.service.trash');
+        Route::match(['get'], '/service/delete/{id}', [ServiceController::class, 'destroy'])->name('admin.service.delete');
+        Route::match(['get', 'post'], '/service/store', [ServiceController::class, 'store'])->name('admin.service.store');
+        Route::match(['get', 'post'], '/service/update/{id}', [ServiceController::class, 'update'])->name('admin.service.update');
+        Route::match(['get'], '/service/restore/{id}', [ServiceController::class, 'restore'])->name('admin.service.restore');
+        Route::match(['get'], '/service/force/{id}', [ServiceController::class, 'force'])->name('admin.service.force');
+        //CancellationPolicy
+        Route::match(['get', 'post'], '/cancellation', [CancellationPolicyController::class, 'index'])->name('admin.cancellation.index');
+        Route::match(['get', 'post'], '/cancellation/trash', [CancellationPolicyController::class, 'trash'])->name('admin.cancellation.trash');
+        Route::match(['get'], '/cancellation/delete/{id}', [CancellationPolicyController::class, 'destroy'])->name('admin.cancellation.delete');
+        Route::match(['get', 'post'], '/cancellation/store', [CancellationPolicyController::class, 'store'])->name('admin.cancellation.store');
+        Route::match(['get', 'post'], '/cancellation/update/{id}', [CancellationPolicyController::class, 'update'])->name('admin.cancellation.update');
+        Route::match(['get'], '/cancellation/restore/{id}', [CancellationPolicyController::class, 'restore'])->name('admin.cancellation.restore');
+        Route::match(['get'], '/cancellation/force/{id}', [CancellationPolicyController::class, 'force'])->name('admin.cancellation.force');
+        //PenaltyPolicy
+        Route::match(['get', 'post'], '/penalty', [PenaltyPolicyController::class, 'index'])->name('admin.penalty.index');
+        Route::match(['get', 'post'], '/penalty/trash', [PenaltyPolicyController::class, 'trash'])->name('admin.penalty.trash');
+        Route::match(['get'], '/penalty/delete/{id}', [PenaltyPolicyController::class, 'destroy'])->name('admin.penalty.delete');
+        Route::match(['get', 'post'], '/penalty/store', [PenaltyPolicyController::class, 'store'])->name('admin.penalty.store');
+        Route::match(['get', 'post'], '/penalty/update/{id}', [PenaltyPolicyController::class, 'update'])->name('admin.penalty.update');
+        Route::match(['get'], '/penalty/restore/{id}', [PenaltyPolicyController::class, 'restore'])->name('admin.penalty.restore');
+        Route::match(['get'], '/penalty/force/{id}', [PenaltyPolicyController::class, 'force'])->name('admin.penalty.force');
     }
 );

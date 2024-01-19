@@ -28,7 +28,9 @@ class RoomController extends Controller
         }
         $room = $room->paginate(6);
         $image_room = ImageRoom::all();
-        return view('admin.page.room.index', compact('room', 'roomtype', 'image_room'));
+        $table_room = TableRoom::all();
+        // dd($table_room);
+        return view('admin.page.room.index', compact('room', 'roomtype', 'image_room', 'table_room'));
     }
     public function store(Request $request)
     {
@@ -68,15 +70,16 @@ class RoomController extends Controller
     public function update(Request $request, $id)
     {
         if ($id) {
-            $fd = $this->room->find($id);
+            $table_room = TableRoom::all();
+            $room = $this->room->find($id);
             $roomtype = $this->roomtype::all();
-            $list_images = ImageFood::where('room_id', $id)->get();
+            $list_images = ImageRoom::where('room_id', $id)->get();
             $files = [];
             if ($request->isMethod('post')) {
                 $param = $request->except('_token');
-                $param['image'] = $fd->image;
+                $param['image'] = $room->image;
                 if ($request->hasFile('image') && $request->file('image')) {
-                    $deleteImage = $this->DeleteImage($fd->image);
+                    $deleteImage = $this->DeleteImage($room->image);
                     if ($deleteImage) {
                         $param['image'] = $this->UploadImage('image_admin', $request->file('image'));
                     }
@@ -102,12 +105,12 @@ class RoomController extends Controller
                     //Delete Image
                     foreach ($files_remove as $key => $value) {
                         $deleteImage = $this->DeleteImage($value);
-                        $delete = ImageFood::where('image', $value)->delete();
-                        $force = ImageFood::onlyTrashed()->where('image', $value)->forceDelete();
+                        $delete = ImageRoom::where('image', $value)->delete();
+                        $force = ImageRoom::onlyTrashed()->where('image', $value)->forceDelete();
                     }
                     //Insert Image
                     foreach ($files as $key => $value) {
-                        ImageFood::create(['room_id' => $id, 'image' => $value]);
+                        ImageRoom::create(['room_id' => $id, 'image' => $value]);
                     }
                     notify()->success('Update success');
                     return redirect()->route('admin.room.index');
@@ -116,7 +119,7 @@ class RoomController extends Controller
                     return redirect()->route('admin.room.index');
                 }
             }
-            return view('admin.page.room.update', compact('fd', 'roomtype', 'list_images'));
+            return view('admin.page.room.update', compact('room', 'roomtype', 'list_images', 'table_room'));
         }
 
     }
@@ -124,7 +127,7 @@ class RoomController extends Controller
     public function destroy($id)
     {
         if ($id) {
-            $delete = Food::find($id)->delete();
+            $delete = Room::find($id)->delete();
             if ($delete) {
                 notify()->success('Delete success');
                 return redirect()->route('admin.room.index');
@@ -136,22 +139,23 @@ class RoomController extends Controller
     }
     public function trash(Request $request)
     {
-        $image_room = ImageFood::all();
+        $table_room = TableRoom::all();
+        $image_room = ImageRoom::all();
         $roomtype = $this->roomtype::all();
-        $room = Food::onlyTrashed();
+        $room = Room::onlyTrashed();
         if ($request->search != '') {
-            $room = Food::onlyTrashed()->where('name', 'Like', "%{$request->search}%")->orWhere('description', 'Like', "%{$request->search}%");
+            $room = Room::onlyTrashed()->where('name', 'Like', "%{$request->search}%")->orWhere('description', 'Like', "%{$request->search}%");
         }
         $room = $room->get();
         if (empty($room)) {
             $room = $room->toQuery()->paginate(6);
         }
-        return view('admin.page.room.trash', compact('room', 'roomtype', 'image_room'));
+        return view('admin.page.room.trash', compact('room', 'roomtype', 'image_room', 'table_room'));
     }
     public function restore($id)
     {
         if ($id) {
-            $delete = Food::withTrashed()->where('id', $id)->restore();
+            $delete = Room::withTrashed()->where('id', $id)->restore();
             if ($delete) {
                 notify()->success('Restore success');
                 return redirect()->route('admin.room.index');
@@ -164,15 +168,17 @@ class RoomController extends Controller
     public function force($id)
     {
         if ($id) {
-            $image = Food::withTrashed()->where('id', $id)->first()->image;
-            $image_remove = ImageFood::where('room_id', $id)->get();
+            $image = Room::withTrashed()->where('id', $id)->first()->image;
+            $image_remove = ImageRoom::where('room_id', $id)->get();
             foreach ($image_remove as $key => $value) {
                 $deleteImage = $this->DeleteImage($value);
-                $delete = ImageFood::where('image', $value)->delete();
-                $force = ImageFood::onlyTrashed()->where('image', $value)->forceDelete();
             }
+            $deleteImageMulti = ImageRoom::where('room_id', $id)->delete();
+            $forceImageMulti = ImageRoom::onlyTrashed()->where('room_id', $id)->forceDelete();
+            $deleteTable = TableRoom::where('room_id', $id)->delete();
+            $forceTable = TableRoom::onlyTrashed()->where('room_id', $id)->forceDelete();
             $deleteImage = $this->DeleteImage($image);
-            $delete = Food::withTrashed()->where('id', $id)->forceDelete();
+            $delete = Room::withTrashed()->where('id', $id)->forceDelete();
             if ($delete) {
                 notify()->success('Delete success');
                 return redirect()->route('admin.room.trash');
