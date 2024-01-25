@@ -33,7 +33,7 @@ class StoreRequest extends FormRequest
                             'phone' => 'required|min:10|regex:/^([0-9\s\-\+\(\)]*)$/',
                             'username' => 'required|max:255|unique:admins',
                             'password' => 'required|max:255',
-                            'email' => 'required|unique:admins'
+                            'email' => 'required|unique:admins,user'
                         ];
                         break;
                     default:

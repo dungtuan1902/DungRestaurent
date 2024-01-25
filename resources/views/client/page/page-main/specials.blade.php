@@ -3,18 +3,18 @@
 
         <div class="section-title">
             <h2>Check our <span>Specials</span></h2>
-            <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque
-                vitae autem.</p>
+            <p>That we may attain to the pleasure and pleasure of life to the fullest extent, that we may do so at the
+                time.</p>
         </div>
 
         <div class="row">
             <div class="col-lg-3">
                 <ul class="nav nav-tabs flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Modi sit est</a>
+                        <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Import</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Unde praesentium sed</a>
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Food inspection</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Pariatur explicabo vel</a>
@@ -32,13 +32,13 @@
                     <div class="tab-pane active show" id="tab-1">
                         <div class="row">
                             <div class="col-lg-8 details order-2 order-lg-1">
-                                <h3>Architecto ut aperiam autem id</h3>
-                                <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila
-                                    parde sonata raqer a videna mareta paulona marka</p>
-                                <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum
-                                    eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat
-                                    minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui
-                                    similique accusamus nostrum rem vero</p>
+                                <h3>Imported from farmers</h3>
+                                <p class="fst-italic">Clean vegetable food is imported from Vietnamese farmers, fresh
+                                    food is also received from reputable slaughterhouses in Vietnam.</p>
+                                <p>After being imported, food will be checked for freshness to avoid poor quality food
+                                    that is harmful to consumers. In particular, we will never import poor quality food
+                                    and will strictly handle cases of intentionally importing dirty food at restaurants.
+                                </p>
                             </div>
                             <div class="col-lg-4 text-center order-1 order-lg-2">
                                 <img src="assets/img/specials-1.jpg" alt="" class="img-fluid">

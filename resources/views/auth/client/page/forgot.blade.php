@@ -8,7 +8,7 @@
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">
-                        <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
+                        <a class="col-lg-6 d-none d-lg-block bg-password-image" href="{{ route('client.main') }}"></a>
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">

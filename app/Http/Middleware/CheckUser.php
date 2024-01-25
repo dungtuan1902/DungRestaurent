@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Auth;
 
-class Admin
+class CheckUser
 {
     /**
      * Handle an incoming request.
@@ -16,14 +16,11 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // if (Auth::check() && Auth::user()->user_type == 'admin') 
-        if (true) 
-        {
+        if (Auth::guard('web')->check() && Auth::guard('web')->user()->status == 1) {
             return $next($request);
-        }
-        
-        else {
-            return redirect('/');
+        } else {
+            notify()->error('Your account does not exist');
+            return redirect()->route('client.login');
         }
     }
 }

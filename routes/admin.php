@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\Admin\AuthController;
 use App\Http\Controllers\CancellationPolicyController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DrinkController;
@@ -14,7 +15,9 @@ use App\Http\Controllers\Room\UlitityRoomController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['admin'])->group(
+Route::match(['get', 'post'], 'login', [AuthController::class, 'login'])->name('admin.login');
+
+Route::middleware('CheckAdmin')->group(
     function () {
         Route::get('/', function () {
             return view('admin.page.dashboard');
@@ -119,3 +122,4 @@ Route::middleware(['admin'])->group(
         Route::match(['get'], '/penalty/force/{id}', [PenaltyPolicyController::class, 'force'])->name('admin.penalty.force');
     }
 );
+Route::match(['get', 'post'], 'logout', [AuthController::class, 'logout'])->name('admin.logout');

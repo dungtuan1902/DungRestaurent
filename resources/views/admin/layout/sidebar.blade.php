@@ -6,7 +6,8 @@
         <div class="sidebar-brand-icon">
             <i class="fa-solid fa-user-tie"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">DT Admin</div>
+        <div class="sidebar-brand-text mx-3">
+            {{ Auth::guard('admin')->user()->Department() .' ' .Auth::guard('admin')->user()->Role() }}</div>
     </a>
 
     <!-- Divider -->
@@ -33,42 +34,15 @@
             aria-expanded="true" aria-controls="collapseDepartment">
             <i class="fa-solid fa-people-roof"></i>
 
-            <span>Department Manager</span>
+            <span>Personnel Manager</span>
         </a>
         <div id="collapseDepartment" class="collapse" aria-labelledby="headingDepartment"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 {{-- <h6 class="collapse-header"></h6> --}}
                 <a class="collapse-item" href="{{ route('admin.department.index') }}">Department Manager</a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fa-solid fa-users"></i>
-
-            <span>Staff Manager</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                {{-- <h6 class="collapse-header"></h6> --}}
                 <a class="collapse-item" href="{{ route('admin.admin.index') }}">Staff Manager</a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRole"
-            aria-expanded="true" aria-controls="collapseRole">
-            <i class="fa-solid fa-users-between-lines"></i>
-
-            <span>Role Manager</span>
-        </a>
-        <div id="collapseRole" class="collapse" aria-labelledby="headingRole" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                {{-- <h6 class="collapse-header"></h6> --}}
                 <a class="collapse-item" href="{{ route('admin.role.index') }}">Role Manager</a>
-
             </div>
         </div>
     </li>
@@ -85,17 +59,6 @@
                 <a class="collapse-item" href="{{ route('admin.roomtype.index') }}">Room Type Manager</a>
                 <a class="collapse-item" href="{{ route('admin.room.index') }}">Room Manager</a>
                 <a class="collapse-item" href="{{ route('admin.ulitityroom.index') }}">Ulitity Room Manager</a>
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseService"
-            aria-expanded="true" aria-controls="collapseService">
-            <i class="fa-brands fa-servicestack"></i>
-            <span>Service Manager</span>
-        </a>
-        <div id="collapseService" class="collapse" aria-labelledby="headingService" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('admin.service.index') }}">Service Manager</a>
             </div>
         </div>

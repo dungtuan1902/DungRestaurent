@@ -18,14 +18,15 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet" type="text/css">
     @notifyCss
 </head>
 
-<body class="bg-white">
+<body class="bg-gradient-primary">
 
     <div class="container">
         @yield('content')
+
     </div>
     <x-notify::notify />
     @notifyJs

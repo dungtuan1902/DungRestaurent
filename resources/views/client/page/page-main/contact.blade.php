@@ -3,8 +3,7 @@
 
         <div class="section-title">
             <h2><span>Contact</span> Us</h2>
-            <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque
-                vitae autem.</p>
+            <p>For us to be able to achieve joy and pleasure in life in any way, it is best that we can do it at any given time.</p>
         </div>
     </div>
 

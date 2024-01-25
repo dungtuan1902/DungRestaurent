@@ -9,96 +9,37 @@
             <div class="col-lg-12 d-flex justify-content-center">
                 <ul id="menu-flters">
                     <li data-filter="*" class="filter-active">Show All</li>
-                    <li data-filter=".filter-starters">Starters</li>
+                    {{-- @foreach ($food['food'] as $item) --}}
+                    @foreach ($food['food_type'] as $ftype)
+                        {{-- @if ($ftype->id == $item->food_type_id) --}}
+                        <li data-filter=".filter-{{ $ftype->id }}">{{ $ftype->name }}</li>
+                        {{-- @endif --}}
+                    @endforeach
+                    {{-- @endforeach --}}
+                    {{-- <li data-filter=".filter-starters">Starters</li>
                     <li data-filter=".filter-salads">Salads</li>
-                    <li data-filter=".filter-specialty">Specialty</li>
+                    <li data-filter=".filter-specialty">Specialty</li> --}}
                 </ul>
             </div>
         </div>
 
         <div class="row menu-container">
+            @foreach ($food['food_type'] as $ftype)
+                <div class="col-lg-6 menu-item filter-{{ $ftype->id }}">
+                    @foreach ($food['food'] as $f)
+                        @if ($ftype->id == $f->food_type_id)
+                            <div class="menu-content">
+                                <a href="#">{{ $f->name }}</a><span>{{ number_format($f->price , 0, '', ',') }}
+                                    VND </span>
+                            </div>
+                            <div class="menu-ingredients">
+                                {{ $f->ingredient }}
+                            </div>
+                        @endif
+                    @endforeach
 
-            <div class="col-lg-6 menu-item filter-starters">
-                <div class="menu-content">
-                    <a href="#">Lobster Bisque</a><span>$5.95</span>
                 </div>
-                <div class="menu-ingredients">
-                    Lorem, deren, trataro, filede, nerada
-                </div>
-            </div>
-
-            <div class="col-lg-6 menu-item filter-specialty">
-                <div class="menu-content">
-                    <a href="#">Bread barrel</a><span>$6.95</span>
-                </div>
-                <div class="menu-ingredients">
-                    Lorem, deren, trataro, filede, nerada
-                </div>
-            </div>
-
-            <div class="col-lg-6 menu-item filter-starters">
-                <div class="menu-content">
-                    <a href="#">Crab Cake</a><span>$7.95</span>
-                </div>
-                <div class="menu-ingredients">
-                    A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-                </div>
-            </div>
-
-            <div class="col-lg-6 menu-item filter-salads">
-                <div class="menu-content">
-                    <a href="#">Caesar Selections</a><span>$8.95</span>
-                </div>
-                <div class="menu-ingredients">
-                    Lorem, deren, trataro, filede, nerada
-                </div>
-            </div>
-
-            <div class="col-lg-6 menu-item filter-specialty">
-                <div class="menu-content">
-                    <a href="#">Tuscan Grilled</a><span>$9.95</span>
-                </div>
-                <div class="menu-ingredients">
-                    Grilled chicken with provolone, artichoke hearts, and roasted red pesto
-                </div>
-            </div>
-
-            <div class="col-lg-6 menu-item filter-starters">
-                <div class="menu-content">
-                    <a href="#">Mozzarella Stick</a><span>$4.95</span>
-                </div>
-                <div class="menu-ingredients">
-                    Lorem, deren, trataro, filede, nerada
-                </div>
-            </div>
-
-            <div class="col-lg-6 menu-item filter-salads">
-                <div class="menu-content">
-                    <a href="#">Greek Salad</a><span>$9.95</span>
-                </div>
-                <div class="menu-ingredients">
-                    Fresh spinach, crisp romaine, tomatoes, and Greek olives
-                </div>
-            </div>
-
-            <div class="col-lg-6 menu-item filter-salads">
-                <div class="menu-content">
-                    <a href="#">Spinach Salad</a><span>$9.95</span>
-                </div>
-                <div class="menu-ingredients">
-                    Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
-                </div>
-            </div>
-
-            <div class="col-lg-6 menu-item filter-specialty">
-                <div class="menu-content">
-                    <a href="#">Lobster Roll</a><span>$12.95</span>
-                </div>
-                <div class="menu-ingredients">
-                    Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                </div>
-            </div>
-
+            @endforeach
         </div>
 
     </div>

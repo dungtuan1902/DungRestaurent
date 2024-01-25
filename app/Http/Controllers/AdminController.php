@@ -8,7 +8,7 @@ use App\Models\Admin;
 use App\Models\Department;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use Hash;
+use Hash, Auth;
 
 class AdminController extends Controller
 {
@@ -27,7 +27,7 @@ class AdminController extends Controller
             $admin = $this->admins->where('name', 'Like', "%{$request->search}%")->orWhere('username', 'Like', "%{$request->search}%");
         }
         if ($request->department != 0) {
-            $admin = $this->admins->where('department_id',$request->department);
+            $admin = $this->admins->where('department_id', $request->department);
         }
         $admin = $admin->paginate(6);
         return view('admin.page.admin.index', compact('admin', 'department', 'role'));
@@ -62,10 +62,11 @@ class AdminController extends Controller
             if ($request->isMethod('post')) {
                 $param = $request->except('_token');
                 $param['image'] = $dep->image;
+                $param['password'] = Hash::make($request->password);
                 if ($request->hasFile('image') && $request->file('image')) {
                     $deleteImage = $this->DeleteImage($dep->image);
                     if ($deleteImage) {
-                        $param['image'] = $this->UploadImage('image_admin',$request->file('image'));
+                        $param['image'] = $this->UploadImage('image_admin', $request->file('image'));
                     }
                 }
 

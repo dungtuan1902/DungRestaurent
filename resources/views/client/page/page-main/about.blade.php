@@ -11,31 +11,27 @@
             <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
 
                 <div class="content">
-                    <h3>Eum ipsam laborum deleniti <strong>velit pariatur architecto aut nihil</strong></h3>
+                    <h3>The restaurant was built by young male <strong>students of FPT Polytechnic College</strong>
+                    </h3>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+                        The restaurant was built because of the young student's passion for food and his desire to share
+                        with everyone about the famous dishes in his hometown, Hoai Duc.
                     </p>
                     <p class="fst-italic">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore
-                        magna aliqua.
+                        Because of the young man's personality, the restaurant has now developed into a culinary chain
+                        that makes foreign diners curious about Hoai Duc cuisine but also surprised by Vietnamese
+                        cuisine.
                     </p>
                     <ul>
-                        <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat.</li>
-                        <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in voluptate
-                            velit.</li>
-                        <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda
-                            mastiro dolore eu fugiat nulla pariatur.</li>
+                        <li><i class="bx bx-check-double"></i> Dedicated and dedicated to customers.</li>
+                        <li><i class="bx bx-check-double"></i> Customer is god.</li>
+                        <li><i class="bx bx-check-double"></i> Food safety and hygiene is paramount.</li>
                     </ul>
                     <p>
-                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum
+                        When visiting the restaurant, diners will leave with a feeling of love, comfort, and relaxation
+                        with the dedicated service of the staff and the sophistication of Hoai Duc cuisine, and
+                        moreover, feel Taste of Hoai Duc cuisine. Vietnam. That's why the restaurant wants to bring
+                        friends from far away to experience Vietnamese cuisine and customs.
                     </p>
                 </div>
 

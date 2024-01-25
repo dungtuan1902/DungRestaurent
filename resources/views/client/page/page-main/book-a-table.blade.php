@@ -3,8 +3,7 @@
 
         <div class="section-title">
             <h2>Book a <span>Table</span></h2>
-            <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque
-                vitae autem.</p>
+            <p>For us to be able to achieve joy and pleasure in life in any way, it is best that we can do it at any given time.</p>
         </div>
 
         <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
